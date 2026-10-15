@@ -1,0 +1,46 @@
+# Copy this file to openspec/config.yaml and select a schema installed by your project.
+# The rules are intentionally project-neutral. Add concrete commands and document paths after adoption.
+schema: spec-driven
+
+context: |
+  This repository uses specification-driven development (SDD).
+  A change is not complete merely because code compiles: the approved scope,
+  tests, observable runtime evidence, and affected documentation must agree.
+
+rules:
+  proposal:
+    - "State the problem, desired outcome, non-goals, affected capabilities, risk boundary, and acceptance evidence."
+    - "Do not use a proposal as a file-by-file implementation checklist; implementation detail belongs in design and tasks."
+    - "For a change that needs no capability delta, state why each related existing capability is unchanged."
+
+  design:
+    - "Start with an impact assessment for API/events, data/storage, lifecycle/async behavior, identity/authorization, and deployment/operations. Every N/A requires a factual boundary."
+    - "Classify the highest backend impact as B0, B1, B2, or B3. B2/B3 require explicit contracts, data ownership, lifecycle/failure handling, migration, rollback, and operational treatment as applicable."
+    - "Include a test strategy. Put assertions in the cheapest valid layer; explain any assertion that must remain end-to-end."
+    - "List affected public interfaces, events, configuration, secrets by name only, data stores, deployment elements, and documents."
+    - "Record risks and trade-offs in one canonical section. Block implementation on unresolved decisions that change contracts, authorization, state, deletion, expiration, retry, or compensation semantics."
+    - "Use diagrams when a service boundary, data flow, state transition, or deployment relation changes; keep diagrams scoped to the affected neighborhood."
+    - "Start from openspec/templates/design.md. Do not delete B2/B3 contract, data, lifecycle, identity, migration, rollback, operations, or test-strategy sections; give factual N/A boundaries where they do not apply."
+    - "Use docs/testing-pyramid.md to select the lowest valid verification layer and to justify every end-to-end assertion."
+
+  tasks:
+    - "Each implementation task must have a preceding, independent test-first task that names the expected behavior and intended test location."
+    - "Execute RED before GREEN. Do not merge test writing into implementation work or add tests only after implementation."
+    - "Keep tasks small enough to leave the repository buildable and testable after each task."
+    - "Include documentation and contract synchronization tasks whenever interfaces, configuration, data, deployment, or operational behavior changes."
+    - "Record command results honestly. A skipped test, missing environment, or unverified behavior is not a pass."
+
+operations:
+  apply:
+    guidance:
+      - "Follow task order: demonstrate the intended RED failure, implement the smallest change, then demonstrate GREEN."
+      - "Run the verification layers selected by the repository trigger matrix after every affected task."
+      - "Treat an exit code of zero as insufficient evidence when runtime registration, configuration, routing, or packaging can silently disable the feature. Capture an observable positive signal."
+      - "If the design or test strategy becomes invalid during implementation, update and re-approve the design instead of silently changing scope."
+      - "Before requesting review, inspect the diff for secrets, private endpoints, personal data, generated artifacts, and unrelated changes."
+
+  archive:
+    guidance:
+      - "Archive only after all required tasks, validation, documentation synchronization, and capability-spec synchronization are complete."
+      - "Summarize what changed, which checks ran, what evidence was observed, and any intentionally deferred work."
+      - "Do not archive unresolved safety, authorization, data migration, deletion, or production-readiness gaps."

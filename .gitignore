@@ -1,0 +1,32 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local auth state, browser artifacts, recordings, traces, and reports
+playwright/.auth/
+test-results/
+playwright-report/
+blob-report/
+traces/
+videos/
+coverage/
+
+# Build and runtime output
+node_modules/
+dist/
+build/
+target/
+.out/
+.tmp/
+.cache/
+.logs/
+
+# Editor and operating-system artifacts
+.DS_Store
+.idea/
+.vscode/
