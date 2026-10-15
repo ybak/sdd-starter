@@ -22,6 +22,8 @@ rules:
     - "Use diagrams when a service boundary, data flow, state transition, or deployment relation changes; keep diagrams scoped to the affected neighborhood."
     - "Start from openspec/templates/design.md. Do not delete B2/B3 contract, data, lifecycle, identity, migration, rollback, operations, or test-strategy sections; give factual N/A boundaries where they do not apply."
     - "Use docs/testing-pyramid.md to select the lowest valid verification layer and to justify every end-to-end assertion."
+    - "For every new V2/V3/V4 test, record behavior/risk, existing coverage, lower-layer evaluation, estimated cost, resource cleanup, and ownership. A generic coverage increase is not sufficient admission evidence."
+    - "Include a test-growth and budget-impact section referencing the project-owned budget file and e2e coverage map. Unknown executable paths must select full e2e coverage rather than silently selecting none."
 
   tasks:
     - "Each implementation task must have a preceding, independent test-first task that names the expected behavior and intended test location."
@@ -29,6 +31,8 @@ rules:
     - "Keep tasks small enough to leave the repository buildable and testable after each task."
     - "Include documentation and contract synchronization tasks whenever interfaces, configuration, data, deployment, or operational behavior changes."
     - "Record command results honestly. A skipped test, missing environment, or unverified behavior is not a pass."
+    - "For a new V2/V3/V4 test, add a task to record the admission rationale and expected cost before implementation; for changed e2e selection, add or update the coverage map and its guard."
+    - "When a budget is exceeded, create tasks in this order: deduplicate, move assertions lower, remove fixed overhead, isolate contention, repair dependencies, then seek approval for a budget change as a last resort."
 
 operations:
   apply:

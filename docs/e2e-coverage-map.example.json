@@ -1,0 +1,36 @@
+{
+  "_instructions": [
+    "Replace every placeholder before use.",
+    "Every V4 spec must appear in specs, even if it has no direct source-path mapping.",
+    "Unknown executable paths must select full V4 and emit a warning; never silently select none.",
+    "Every noE2e entry must name the V1, V2, or V3 evidence that owns the behavior."
+  ],
+  "alwaysFull": [
+    "<authentication-or-session-path-glob>",
+    "<shared-runtime-or-global-configuration-glob>",
+    "<e2e-fixture-or-runner-configuration-glob>"
+  ],
+  "specs": {
+    "<critical-user-journey>.spec.<extension>": [
+      "<feature-source-path-glob>",
+      "<feature-adapter-path-glob>"
+    ],
+    "<secondary-user-journey>.spec.<extension>": [
+      "<another-feature-source-path-glob>"
+    ]
+  },
+  "noE2e": {
+    "<pure-domain-source-path-glob>": {
+      "coveredBy": "<V1 test or suite>",
+      "reason": "<why no browser, deployed artifact, or external boundary is required>"
+    },
+    "<assembly-or-contract-source-path-glob>": {
+      "coveredBy": "<V2 or V3 test or suite>",
+      "reason": "<why the lower layer proves the contract>"
+    }
+  },
+  "nonCode": [
+    "<documentation-path-glob>",
+    "<non-runtime-metadata-path-glob>"
+  ]
+}

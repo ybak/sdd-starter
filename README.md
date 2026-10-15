@@ -21,6 +21,9 @@ sdd-starter/
 ├── docs/
 │   ├── sdd-operating-model.md        # 工件职责、门禁与审查角色
 │   ├── testing-pyramid.md            # V0–V4 金字塔、决策树、B0–B3 映射
+│   ├── test-growth-governance.md     # 用例准入、超预算处置与 V4 选择规则
+│   ├── verification-budget.example.yaml # 预算、历史阈值与执行模式样例
+│   ├── e2e-coverage-map.example.json # 按改动选择 V4 的安全缺省样例
 │   └── verification-strategy.md      # 证据、隔离、预算和结果记录
 └── openspec/
     ├── config.yaml                   # 通用 OpenSpec 工作流规则
@@ -35,7 +38,7 @@ sdd-starter/
 1. 将本目录内容复制到目标仓库根目录；不要复制任何源仓库的本地配置、构建产物或历史变更。
 2. 在 `AGENTS.md` 中把 `<static-command>`、`<unit-command>`、`<integration-command>`、`<build-command>`、`<smoke-command>`、`<e2e-command>` 替换为项目的真实命令。
 3. 在 `openspec/config.yaml` 中选择目标项目已安装的 schema，并补充项目特有的兼容性、数据归属和文档索引规则。
-4. 先阅读 `docs/testing-pyramid.md`，将项目的实际测试命令、层级预算、真实环境前置和 e2e 资源清理规则固化下来。
+4. 先阅读 `docs/testing-pyramid.md` 和 `docs/test-growth-governance.md`，将项目的实际测试命令、层级预算、历史阈值、用例准入、真实环境前置、e2e 资源清理及按改动选择规则固化下来；从 `verification-budget.example.yaml` 与 `e2e-coverage-map.example.json` 创建项目自己的版本化配置。
 5. 从 `openspec/templates/` 复制 proposal、design、spec、tasks 到描述性 `change-id`；`example-add-capability/` 只用于学习完整工件如何相互对应。
 6. 先在一个小变更上试运行：确认 RED 测试能失败、GREEN 后各层验证能运行、归档流程能同步主规格。
 7. 把分支保护、必需检查、代码审查和发布审批配置到代码托管平台；仓库文字规则不能替代平台权限控制。
@@ -53,6 +56,8 @@ sdd-starter/
 
 - `docs/sdd-operating-model.md`：了解 proposal、design、spec、tasks 和验证记录如何形成一条证据链。
 - `docs/testing-pyramid.md`：为项目定义 V0–V4 的职责、断言放置决策树、B0–B3 最低验证组合、资源隔离和预算规则。
+- `docs/test-growth-governance.md`：定义新增用例准入记录、重复覆盖约束、超预算处置顺序、MR 子集与发布全量 V4 的分工。
+- `docs/verification-budget.example.yaml` 与 `docs/e2e-coverage-map.example.json`：分别是预算/历史阈值和按改动选择 V4 的机器可读配置样例。
 - `openspec/templates/`：复制完整的 proposal、design、spec、tasks 技术方案骨架；其中 design 含 API/事件、数据、生命周期、权限、迁移、回滚、运维和测试策略的固定章节。
 
 ## 发布到 GitHub 前

@@ -148,11 +148,33 @@ stateDiagram-v2
 
 ## 11. Test Strategy
 
-| Behavior / risk | RED test | GREEN implementation task | Lowest valid layer | Higher-layer evidence | Why not lower / higher |
-|---|---|---|---|---|---|
-| <behavior> | <test name and expected failure> | <task> | V0–V4 | <if needed> | <reason> |
+| Behavior / risk | RED test | GREEN implementation task | Lowest valid layer | Higher-layer evidence | Why not lower / higher | Admission rationale and estimated cost |
+|---|---|---|---|---|---|---|
+| <behavior> | <test name and expected failure> | <task> | V0–V4 | <if needed> | <reason> | <existing coverage, expected duration, resource cleanup, owner> |
 
 <Reference `docs/testing-pyramid.md`. Every V4 assertion must explain why V2/V3 cannot prove it.>
+
+### Test Growth and Budget Impact
+
+| New or changed test | Behavior / risk | Existing coverage | Why this layer is the lowest valid layer | Estimated regular cost | Budget impact / mitigation | Owner |
+|---|---|---|---|---|---|---|
+| <test or suite> | <risk> | <none or existing test> | <fact> | <duration / serial dependency> | <budget file reference and action> | <role> |
+
+- **Budget source:** `<project-owned budget file>`.
+- **Historical baseline:** `<record location, window and regression policy>`.
+- **Over-budget plan:** deduplicate → move assertions lower → remove fixed overhead → isolate contention → repair dependency → approved budget change only as a last resort.
+- **Prohibited shortcuts:** retries, weaker assertions, global timeout increases, unisolated parallelism, and machine scaling as a substitute for redistribution.
+
+### e2e Selection and Full Regression
+
+| Changed path category | V4 selection | Evidence |
+|---|---|---|
+| `alwaysFull` | full V4 | <coverage map rule> |
+| mapped feature | login/precondition + mapped specs | <coverage map rule> |
+| `noE2e` | no V4; run named lower layer | <V1/V2/V3 owner> |
+| unknown executable path | full V4 with warning | <safe default> |
+
+<Merge requests may run the selected V4 subset. Release and scheduled regression run full V4 in enforce mode.>
 
 ## 12. Documentation and Contract Synchronization
 

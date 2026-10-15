@@ -1,0 +1,75 @@
+# Copy to a project-owned verification budget file and replace every placeholder.
+# Keep this file as the single source of truth for time-budget policy.
+version: 1
+
+modes:
+  local: warn       # report over-budget results but do not alter the command exit code
+  ci: enforce       # fail the pipeline when a budget is exceeded
+  release: enforce  # complete regression and release evidence
+
+history:
+  sample_window: "<positive-integer>"
+  minimum_samples: "<positive-integer>"
+  relative_regression_ratio: "<for-example-1.25>"
+  minimum_absolute_regression_seconds: "<positive-integer>"
+  investigate_unexpected_speedup: true
+
+layers:
+  V0:
+    command: "<static-command>"
+    budget_seconds: "<positive-integer>"
+    record_assertion_count: true
+  V1:
+    command: "<unit-command>"
+    budget_seconds: "<positive-integer>"
+    record_assertion_count: true
+  V2:
+    command: "<integration-command>"
+    budget_seconds: "<positive-integer>"
+    record_assertion_count: true
+  V3:
+    command: "<build-and-smoke-command>"
+    budget_seconds: "<positive-integer>"
+    record_assertion_count: true
+  V4:
+    command: "<end-to-end-command>"
+    budget_seconds: "<positive-integer>"
+    record_assertion_count: true
+    full_regression_required_for:
+      - release
+      - scheduled-regression
+    changed_subset_allowed_for:
+      - merge-request
+
+admission:
+  require_reason_for_new_V2_or_higher: true
+  require_reason_why_new_V4_cannot_be_V2_or_V3: true
+  require_estimated_cost_for_new_V3_or_V4: true
+  reject_duplicate_primary_assertions: true
+
+budget_breach_policy:
+  required_order:
+    - deduplicate-assertions
+    - move-assertions-to-lower-layer
+    - remove-fixed-overhead
+    - isolate-resource-contention
+    - repair-or-isolate-external-dependency
+    - approved-budget-change-as-last-resort
+  prohibited_shortcuts:
+    - add-retries
+    - weaken-assertions
+    - increase-timeout-without-analysis
+    - add-workers-before-resource-isolation
+    - add-machines-as-a-substitute-for-redistribution
+
+reporting:
+  record:
+    - layer
+    - duration_seconds
+    - revision
+    - mode
+    - executed_count
+    - skipped_count
+    - selected_e2e_specs
+  output_changed_e2e_selection_reason: true
+  fail_if_e2e_mapping_is_unknown: false # select full V4 and emit a warning instead
