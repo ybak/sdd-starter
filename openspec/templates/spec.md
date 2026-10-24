@@ -1,6 +1,6 @@
-# <Capability Name> Specification
+# <能力名称> 规格
 
-## Purpose
+## 目的
 
 <能力为谁解决什么问题；不描述内部实现。>
 
@@ -8,37 +8,41 @@
 
 ### Requirement: <observable behavior>
 
-The system SHALL <normative behavior>.
+The system SHALL <规范性行为要求>。
 
-#### Scenario: <successful path>
+#### Scenario: <成功场景>
 
-- **GIVEN** <precondition>
-- **WHEN** <actor action>
-- **THEN** <observable result>
-- **AND** <state, event, authorization, or audit result if applicable>
+- **GIVEN** <前置条件>
+- **WHEN** <参与者执行的操作>
+- **THEN** <可观察结果>
+- **AND** <适用时，状态、事件、授权或审计结果>
 
-#### Scenario: <rejection or failure path>
+#### Scenario: <拒绝或失败场景>
 
-- **GIVEN** <precondition>
-- **WHEN** <invalid, unauthorized, conflicting, or unavailable action>
-- **THEN** <specific failure contract>
-- **AND** <state must not change, if applicable>
+- **GIVEN** <前置条件>
+- **WHEN** <无效、未授权、冲突或不可用的操作>
+- **THEN** <明确的失败契约>
+- **AND** <适用时，说明状态不得改变>
 
-### Requirement: <lifecycle, consistency, or security invariant>
+### Requirement: <生命周期、一致性或安全不变量>
 
-The system SHALL <invariant>.
+The system SHALL <不变量要求>。
 
-#### Scenario: <boundary condition>
+#### Scenario: <边界场景>
 
-- **GIVEN** <condition>
-- **WHEN** <action>
-- **THEN** <invariant remains true>
+- **GIVEN** <条件>
+- **WHEN** <操作>
+- **THEN** <不变量仍然成立>
 
-## Compatibility and Observability
+## 行为概览（可选）
 
-- <consumer compatibility promise or N/A>
-- <required user-visible, audit, metric, log, or event evidence>
+> 仅当复杂的外部可观察交互或状态转换难以通过文字场景整体理解时，补充 Mermaid UML 时序图或状态图；否则删除本节。内部实现图放在 design，跨工件优先引用已有图。关键分支 / 转换须对应 Requirement / Scenario，图不能替代规范性要求与验收场景。
 
-## Out of Scope
+## 兼容性与可观测性
 
-- <explicit exclusion>
+- <对调用方的兼容性承诺，或说明 N/A 的原因>
+- <所需的用户可见信息、审计、指标、日志或事件证据>
+
+## 范围外
+
+- <明确排除的事项>
